@@ -1,0 +1,69 @@
+<div class="row animate__animated animate__fadeIn animate__faster">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col">
+                    <div class="row justify-content-end">
+                        <div class="float-right">
+                            <button class="btn btn-primary" routerLink="/admin/lugares/lugar/nuevo">Nuevo<i class="fa fa-plus m-l-10"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col m-t-10">
+                    <div class="row justify-content-between">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input #txtBuscar type="text" class="form-control " (keyup)="cargarLugares(txtBuscar.value)" id="fname" placeholder="Buscar">
+                                <div class="input-group-append">
+                                    <span class="input-group-text micursor" (click)="txtBuscar.value ='';cargarLugares(txtBuscar.value)"><i class="fa fa-times-circle"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="float-right">
+                                <app-pagination (cambiarPagina)="cambiarPagina( $event )" [totalRegistros]="totallugares" [registroActual]="posicionactual+1" [registrosPorPagina]="registrosporpagina"></app-pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-primary text-center" *ngIf="loading">
+                    <h4 class="alert-heading">Cargando!</h4>
+                    <i class="fa fa-spin fa-spinner fa-3x"></i>
+                    <p>Por favor, espere</p>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="tabla_eventos" class="table table-striped table-bordered">
+                        <thead style="color: white; background: rgb(139,18,18);
+                      background: linear-gradient(28deg, rgba(139,18,18,1) 0%, rgba(208,122,122,1) 27%, rgba(116,196,235,1) 100%);">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Código</th>
+                                <th>Localización (latitud, longitud)</th>
+                                <th>Plantas</th>
+                                <th>Eventos programados</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let lugar of listaLugares">
+                                <td>{{lugar.nombre}}</td>
+                                <td>{{lugar.id}}</td>
+                                <td>{{lugar.bbox}}</td>
+                                <td>{{lugar.plantas}}</td>
+                                <td>{{lugar.eventos.length}}</td>
+                                <td class="text-center">
+                                    <i class="fa fa-pencil-alt text-success fa-lg mr-5 micursor" style="color: #84bddd !important" [routerLink]="['/admin/lugares/lugar', lugar.uid]"></i>
+                                    <i class="fa fa-trash text-danger fa-lg micursor" (click)="eliminarLugar(lugar.uid!, lugar.nombre!)"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" mt-2 mr-2 float-right ">
+                    <app-pagination (cambiarPagina)="cambiarPagina( $event ) " [texto]="true " [totalRegistros]="totallugares " [registroActual]="posicionactual+1 " [registrosPorPagina]="registrosporpagina "></app-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

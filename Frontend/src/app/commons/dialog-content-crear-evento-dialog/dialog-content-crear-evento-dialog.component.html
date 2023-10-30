@@ -1,0 +1,171 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="neweventform">
+    <div>
+        <button class="cerrar2" mat-dialog-close>
+          <i class="material-icons" style="color: #e73c7e; font-size: 20px;">close</i>
+        </button>
+    </div>
+    <mat-horizontal-stepper class="mths" [labelPosition]="'bottom'">
+
+        <form [formGroup]="datosForm" (ngSubmit)="enviar()" #formone="ngForm">
+
+            <mat-step>
+                <ng-template matStepLabel>
+                    <p>Lugar</p>
+                    <mat-icon>add_location</mat-icon>
+                </ng-template>
+                <h1>¿Dónde será el evento?</h1>
+                <div class="form-group" style="height: 254px;">
+                    <mat-label>Selecciona un lugar (*)</mat-label><br>
+                    <mat-form-field class="example-full-width" appearance="fill" style="width: 100%">
+                        <mat-label>Lugar *</mat-label>
+                        <input type="text" class="example-full-width" [formControl]="myControlLugs" placeholder="Selecciona un lugar *" aria-label="lugs" matInput [matAutocomplete]="auto">
+                        <mat-autocomplete name="lugar" autoActiveFirstOption #auto="matAutocomplete">
+                            <mat-option *ngFor="let lug of filteredLugs | async" [value]="lug">
+                                {{lug}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="myControlLugs.hasError('required')">Por favor, selecciona un lugar</mat-error>
+                    </mat-form-field>
+                </div>
+                <button class="btn btn-primary float-right" matStepperNext>Siguiente</button>
+                <button class="btn float-right" matStepperNext><i class="material-icons movil" style="color: #272727; font-size: 20px;">keyboard_arrow_right</i></button> </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>
+                    <p>General</p>
+                    <mat-icon>local_activity</mat-icon>
+                </ng-template>
+                <h1>Información general</h1>
+                <div style="height: 270px">
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label for="nombre">Nombre evento (*)</label>
+                            <input type="text" class="form-control" formControlName="nombre" id="nombre" required [ngClass]="{'is-invalid' : campoNoValido('nombre')}">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="max_aforo">Aforo permitido</label>
+                            <input type="number" max="5000" class="form-control" formControlName="max_aforo" id="max_aforo">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea class="form-control" formControlName="descripcion" id="descripcion" rows="2"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label for="link">Link (Enlace con información adicional)</label>
+                            <input type="text" class="form-control" formControlName="link" id="link">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="precio">Precio de entrada (€)</label>
+                            <input type="number" max="5000" class="form-control" formControlName="precio" id="precio">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" matStepperPrevious>Anterior</button>
+                <button class="btn" matStepperPrevious><i class="material-icons movil" style="color: #272727; font-size: 20px;">keyboard_arrow_left</i></button>
+                <button class="btn btn-primary float-right" matStepperNext>Siguiente</button>
+                <button class="btn float-right" matStepperNext><i class="material-icons movil" style="color: #272727; font-size: 20px;">keyboard_arrow_right</i></button>
+
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>
+                    <p>Tipo</p>
+                    <mat-icon>dashboard</mat-icon>
+                </ng-template>
+                <h1>¿Qué tipo de evento será?</h1>
+                <div class="row">
+                    <div class="form-group col nomarginbottom">
+                        <label for="areas">Áreas (*)</label><br>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Áreas</mat-label>
+                            <mat-select formControlName="areas" multiple required>
+
+                                <mat-option *ngFor="let area of listaAreas" [value]="area">{{area}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="areas.hasError('required')">Por favor, selecciona un área</mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="form-group col nomarginbottom">
+                        <mat-label>Categoría (*)</mat-label>
+                        <mat-form-field class="example-full-width" appearance="fill" style="margin-top: 8px!important;">
+                            <mat-label>Categoría</mat-label>
+                            <input type="text" class="autoc" [formControl]="myControl" placeholder="Selecciona una *" aria-label="categoria" matInput [matAutocomplete]="auto1" required>
+                            <mat-autocomplete name="categoria" autoActiveFirstOption #auto1="matAutocomplete">
+                                <mat-option *ngFor="let cat of filteredCats | async" [value]="cat">
+                                    {{cat}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="myControl.hasError('required')">Por favor, selecciona una categoria</mat-error>
+                        </mat-form-field>
+                        <!--<label for="categoria">Categoría (*)</label><br>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Categoría</mat-label>
+                            <mat-select name="food" formControlName="categoria">
+                                <mat-option *ngFor="let cat of categorias" [value]="cat">
+                                    {{cat}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>-->
+                    </div>
+                </div>
+                <div style="width: 100%; align-items: center; text-align: center;">
+                    <mat-label>Imagen del evento</mat-label>
+                    <div class="imagenDiv">
+                        <label class="pointer" for="fotoev" data-browse="Elegir"><div class="d-flex justify-content-center align-items-center rounded" style="height: 110px; background-color: rgb(233, 236, 239);">
+                        <img [src]="imagenUrl" class="img-thumbnail-ev" width="250" height="110">
+                    </div></label>
+                        <!--<label class="pointer" for="fotoev" data-browse="Elegir"><i class="fa fa-fw fa-camera"></i> Subir Foto</label>-->
+                        <input type="file" class="custom-file-input" formControlName="imagen" id="fotoev" (change)="cambioImagen( $event )">
+                    </div>
+                </div>
+                <button class="btn btn-primary" matStepperPrevious>Anterior</button>
+                <button class="btn" matStepperPrevious><i class="material-icons movil" style="color: #272727; font-size: 20px;">keyboard_arrow_left</i></button>
+                <button class="btn btn-primary float-right" matStepperNext>Siguiente</button>
+                <button class="btn float-right" matStepperNext><i class="material-icons movil" style="color: #272727; font-size: 20px;">keyboard_arrow_right</i></button>
+            </mat-step>
+
+
+            <mat-step>
+                <ng-template matStepLabel>
+                    <p>Fecha</p>
+                    <mat-icon>date_range</mat-icon>
+                </ng-template>
+                <h1>¿Cuándo es el evento?</h1>
+                <div style="height: 270px">
+                    <div class="row">
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6">
+                            <label for="fecha_in">Fecha de inicio (*)</label>
+                            <input type="date" min={{fechahoy}} class="form-control" formControlName="fecha_in" id="fecha_in" required [ngClass]="{'is-invalid' : campoNoValido('fecha_in')}" (change)="copiarFecha()">
+                        </div>
+                        <div class="form-group col-lg-6 col-md-6 col-sm-6">
+                            <label for="fecha_fin">Fecha de finalización (*)</label>
+                            <input type="date" min={{fechainicio}} class="form-control" formControlName="fecha_fin" id="fecha_fin" required [ngClass]="{'is-invalid' : campoNoValido('fecha_fin')}" (change)="comprobarFin()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_fini">Posibilidad de inscripción hasta</label>
+                        <input type="date" min={{fechahoy}} max={{fechainicio}} class="form-control" formControlName="fecha_fini" id="fecha_fini" (change)="comprobarInscripcion()">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Horario (*)</label>
+                        <input type="text" class="form-control" formControlName="hora" id="hora" required [ngClass]="{'is-invalid' : campoNoValido('hora')}">
+                    </div>
+                </div>
+                <button class="btn btn-primary" matStepperPrevious>Anterior</button>
+                <button mat-button type="button" (click)="formone.ngSubmit.emit()" id="enviar" class=" btn btn-primary float-right ">Crear</button>
+                <button class="btn" matStepperPrevious><i class="material-icons movil" style="color: #272727; font-size: 20px;">keyboard_arrow_left</i></button>
+                <button mat-button mat-dialog-close type="button" (click)="formone.ngSubmit.emit()" id="enviar" class=" btn movil float-right">Crear</button>
+
+            </mat-step>
+
+            <!--<button type="submit " class="btn btn-primary float-right ">Crear</button>-->
+
+        </form>
+    </mat-horizontal-stepper>
+
+</div>

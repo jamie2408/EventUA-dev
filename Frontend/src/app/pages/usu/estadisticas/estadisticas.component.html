@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<div id="body">
+    <div class="row" id="cards">
+        <div class="card-div col-lg-6 col-md-12 col-sm-12">
+            <div class="card " id="card-r">
+                <div class="card-body">
+                    <h2 class="card-title">Total eventos creados</h2>
+                    <app-eventostotaleschart></app-eventostotaleschart>
+                    <h6 class="card-subtitle mb-2 text-muted">Total eventos creados por mes en el año 2022</h6>
+                    <p class="card-text"></p>
+                    <a href="#" class="card-link">Crea un nuevo evento</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-div col-lg-6 col-md-12 col-sm-12">
+            <div class="card" id="card-r">
+                <div class="card-body">
+                    <h2 class="card-title">Total eventos asistidos</h2>
+                    <app-eventoscreados></app-eventoscreados>
+                    <h6 class="card-subtitle mb-2 text-muted">Total eventos asistidos por mes en el año 2022</h6>
+                    <p class="card-text"></p>
+                    <a href="#" class="card-link">Únete a un evento</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-div col-lg-6 col-md-12 col-sm-12">
+            <div class="card" id="card-r">
+                <div class="card-body">
+                    <h2 class="card-title">Lugares favoritos
+                    </h2>
+                    <!--<mat-form-field appearance="fill">
+                    <mat-label>Seleccione un rango de fechas</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input #fromInput matStartDate placeholder="Start date">
+                        <input #toInput matEndDate placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <mat-icon matDatepickerToggleIcon>clear</mat-icon>-->
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <app-lugaresfavoritoschart></app-lugaresfavoritoschart>
+                    <h6 class="card-subtitle mb-2 text-muted">Se cuentan todos los eventos asistidos y creados desde la creación de la cuenta</h6>
+                    <a href="https://blackpanda.eventua.ovh/wiki" target="_blank" class="card-link">Conóce mejor tus lugares</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-div col-lg-6 col-md-12 col-sm-12">
+            <div class="card" id="card-r">
+                <div class="card-body">
+                    <h2 class="card-title">Categorías favoritas</h2>
+                    <!--<mat-form-field appearance="fill">
+                    <mat-label>Seleccione un rango de fechas</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input #fromInput matStartDate placeholder="Start date">
+                        <input #toInput matEndDate placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <mat-icon matDatepickerToggleIcon>clear</mat-icon>-->
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                    <app-areasfavoritas></app-areasfavoritas>
+                    <h6 class="card-subtitle mb-2 text-muted">Se cuentan todos los eventos asistidos y creados desde la creación de la cuenta</h6>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-div col-lg-6 col-md-12 col-sm-12">
+            <div class="card" id="card-r">
+                <div class="card-body">
+                    <h2 class="card-title">Prueba API Agenda</h2>
+                    <tr *ngFor="let evento of listaEventos">
+                        <th>{{evento.title}}</th>
+                    </tr>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,299 @@
+<!--<div class="animate__animated animate__fadeInDown animate__faster">
+    <div class="d-flex justify-content-center">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <h5 class="card-title">Datos del perfil</h5>
+                <div class="text-success text-right animate__animated animate__faster" [ngClass]="{'animate__fadeIn': showOKD && datosForm.pristine, 'animate__fadeOut' : !(showOKD && datosForm.pristine)}">Datos actualizados</div>
+                <div class="text-center" style="height: 200px;">
+                    <img [src]="imagenUrl" class="img-thumbnail rounded-circle" width="200">
+                </div>
+                <div class="">
+                    <form class="form-horizontal m-t-20" [formGroup]="datosForm" (ngSubmit)="enviar()">
+                        <div class="row m-t-10">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class="">Nombre</span>
+                            </div>
+                            <div class="col-lg-8 ">
+                                <input type="text" class="form-control" formControlName="nombre" [ngClass]="{'is-invalid' : campoNoValido('nombre')}" id="nombre">
+                                <div class="invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t-10">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class="">Apellidos</span>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <input type="text" class="form-control" formControlName="apellido" [ngClass]="{'is-invalid' : campoNoValido('apellido')}" id="apellido">
+                                <div class="invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row m-t-10 ">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class=" ">Email</span>
+                            </div>
+                            <div class="col-lg-8 col-md-12 ">
+                                <input type="text " class="form-control " formControlName="email" [ngClass]="{ 'is-invalid' : campoNoValido( 'email')} " id="email ">
+                                <div class="invalid-feedback ">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" row m-t-10 ">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class=" ">Edad</span>
+                            </div>
+                            <div class="col-lg-8 col-md-12 ">
+                                <input type="number " class="form-control " formControlName="edad" id="edad">
+
+                            </div>
+                        </div>
+                        <div class="form-group row m-t-10">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class=" ">Imagen</span>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" formControlName="imagen" id="fotoperfil" (change)="cambioImagen( $event )">
+                                    <label class="custom-file-label" for="fotoperfil" data-browse="Elegir">{{fileText}}</label>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center m-t-10 ">
+                            <div class="align-content-center ">
+                                <button class="btn btn-primary m-r-20 " type="submit " id="enviar" [disabled]="datosForm.pristine">Enviar</button>
+                                <button class="btn btn-danger " (click)="cargarUsuario()" type="button" id="cancelar" [disabled]="datosForm.pristine">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <h5 class="card-title">Cambio de contraseña</h5>
+                <div class="text-success text-right animate__animated animate__faster" [ngClass]="{'animate__fadeIn': showOKP && this.datosPassword.pristine, 'animate__fadeOut' : !(showOKP && this.datosPassword.pristine)}">Contraseña actualizada</div>
+                <form class="form-horizontal m-t-20" [formGroup]="datosPassword" (ngSubmit)="cambiarPassword()">
+                    <div class="row m-t-10">
+                        <div class="col-lg-4 text-lg-right">
+                            <span class="">Contraseña actual</span>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid' : campopNoValido('password')}" id="password">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-4 text-lg-right">
+                            <span class="">Nueva contraseña</span>
+                        </div>
+                        <div class="col-lg-6 ">
+                            <input type="password" class="form-control" formControlName="nuevopassword" [ngClass]="{'is-invalid' : campopNoValido('nuevopassword')}" id="nuevopassword">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-4 text-lg-right">
+                            <span class="">Repita contraseña</span>
+                        </div>
+                        <div class="col-lg-6 ">
+                            <input type="password" class="form-control" formControlName="nuevopassword2" [ngClass]="{'is-invalid' : campopNoValido('nuevopassword2') || passwordNoIgual()}" id="nuevopassword2">
+                            <div class="invalid-feedback" *ngIf="campopNoValido('nuevopassword2')">
+                                El campo es obligatorio
+                            </div>
+                            <div class="invalid-feedback" *ngIf="passwordNoIgual()">
+                                La contraseña repetida no es igual a la nueva contraseña
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-t-10 ">
+                        <div class="align-content-center ">
+                            <button class="btn btn-warning m-r-20" type="submit " id="enviarpassword" [disabled]="datosPassword.pristine"><i class="fa fa-key m-r-10"></i>Cambiar contraseña</button>
+                            <button class="btn btn-danger " (click)="cancelarPassword()" type="button" id="cancelar" [disabled]="datosPassword.pristine">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="fondo">
+    <div class="container">
+        <div class="row flex-lg-nowrap">
+            <div class="col">
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="e-profile">
+                                    <div class="row">
+
+                                        <div class="col-12 col-sm-auto mb-3">
+                                            <div class="mx-auto" style="width: 140px;">
+                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                    <img [src]="imagenUrl" class="img-thumbnail rounded-circle" width="200">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3" *ngIf="usu">
+                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{usu.nombre}} {{usu.apellido}}</h4>
+                                                <p class="mb-0">{{usu.email}}</p>
+                                                <div class="mt-2">
+                                                    <button class="btn btn-primary imagensel" type="button">
+                                                  <label for="fotoperfil" data-browse="Elegir"><i class="fa fa-fw fa-camera"></i> Subir Foto</label>
+                                                  <input type="file" class="custom-file-input" formControlName="imagen" id="fotoperfil" (change)="cambioImagen( $event )">
+                                                </button>
+                                                </div>
+                                            </div>
+                                            <div class="text-center text-sm-right">
+                                                <span class="badge badge-secondary">{{usu.rol}}</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item"><a href="#" class="active nav-link">Modificar datos</a></li>
+                                    </ul>
+                                    <div class="tab-content pt-3">
+                                        <div class="tab-pane active">
+                                            <form class="form" [formGroup]="datosForm" (ngSubmit)="enviar()" novalidate="">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Nombre</label>
+                                                                    <input type="text" class="form-control" formControlName="nombre" [ngClass]="{'is-invalid' : campoNoValido('nombre')}" id="nombre">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Apellido</label>
+                                                                    <input type="text" class="form-control" formControlName="apellido" [ngClass]="{'is-invalid' : campoNoValido('apellido')}" id="apellido">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-8">
+                                                                <div class="form-group">
+                                                                    <label>Email</label>
+                                                                    <input type="text " class="form-control " formControlName="email" [ngClass]="{ 'is-invalid' : campoNoValido( 'email')} " id="email ">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label>Edad</label>
+                                                                    <input type="number " class="form-control " formControlName="edad" id="edad">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6 mb-3">
+                                                    <div class="mb-2"><b>Cambiar contraseña</b></div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Contraseña actual</label>
+                                                                <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid' : campopNoValido('password')}" id="password">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Nueva contraseña</label>
+                                                                <input class="form-control" type="password" placeholder="••••••">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Confirmar contraseña</label>
+                                                                <input class="form-control" type="password" placeholder="••••••"></div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                                    <div class="mb-2"><b>Manténte en contacto</b></div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <label>Avisos al email</label>
+                                                            <div class="custom-controls-stacked px-2">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                                    <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                                                                    <label class="custom-control-label" for="notifications-news">Novedades</label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                                                    <label class="custom-control-label" for="notifications-offers">Recomendaciones</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-3 mb-3">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="px-xl-3">
+                                    <button class="btn btn-block btn-secondary">
+                <i class="fa fa-sign-out"></i>
+                <span (click)="logout()"> Cerrar sesión</span>
+              </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title font-weight-bold">Ayuda</h6>
+                                <p class="card-text">¿Alguna duda? Desde EventUA proporcionamos un servicio rápido y eficaz de atención al cliente.</p>
+                                <button type="button" class="btn btn-primary">Contáctanos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar" data-sidebarbg="skin5">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav" class="p-t-30">
+
+                <li class="sidebar-item" *ngFor="let item of menu">
+                    <div>
+                        <a class="sidebar-link waves-effect waves-light sidebar-link icono-sidebar" [routerLink]="item.url" aria-expanded="false">
+                            <mat-icon style="color: #fff">{{item.icono}}</mat-icon>
+                            <span class="hide-menu">{{item.titulo}}</span>
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->

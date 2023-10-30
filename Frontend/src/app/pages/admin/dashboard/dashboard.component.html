@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row text-center">
+        <div class="col-xs-12 col-md-3">
+            <div class="counter">
+                <i class="fa fa-calendar-alt fa-2x stats-icon"></i>
+                <h2 class="timer count-title count-number">{{todoseventos}}</h2>
+                <div class="stats-line-black"></div>
+                <p class="stats-text">Eventos totales</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div class="counter">
+                <i class="fa fa-calendar-check fa-2x stats-icon"></i>
+                <h2 class="timer count-title count-number">{{activoseventos}}</h2>
+                <div class="stats-line-black"></div>
+                <p class="stats-text">Eventos activos</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div class="counter">
+                <i class="fa fa-users fa-2x stats-icon"></i>
+                <h2 class="timer count-title count-number">{{usuariosActivos}}</h2>
+                <div class="stats-line-black"></div>
+                <p class="stats-text">Usuarios activos</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div class="counter">
+                <i class="fa fa-user fa-2x stats-icon"></i>
+                <h2 class="timer count-title count-number">{{usuariosCreadores}}</h2>
+                <div class="stats-line-black"></div>
+                <p class="stats-text">Creadores de eventos</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <p class="stats-text">Eventos activos</p>
+            <table class="center">
+                <tr>
+                    <td>
+                        <ngx-charts-advanced-pie-chart [view]="[350,250]" [results]="surveyData"></ngx-charts-advanced-pie-chart>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-6" style="text-align: center;">
+            <p class="stats-text">Lugares más populares</p>
+            <table class="center">
+                <tr>
+                    <td>
+                        <ngx-charts-pie-chart [gradient]="false" [view]="[350,250]" [results]="surveyDataLugs"></ngx-charts-pie-chart>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-6" style="text-align: center; margin-top: 20px;">
+            <p class="stats-text">Eventos con más favoritos</p>
+            <iframe src="https://eventua.ovh/grafana/d-solo/RSfkh9L7k/eventua?orgId=1&from=1652960117669&to=1652981717669&panelId=2" width="450" height="200" frameborder="0"></iframe>
+            <p class="stats-text" style="margin-top: 20px;">Próximos eventos</p>
+            <ngx-charts-bar-vertical [view]="[400,250]" [results]="surveyProximos" [gradient]="true" [xAxis]="true" [yAxis]="true" [legend]="false" [showXAxisLabel]="true" [showYAxisLabel]="true" xAxisLabel="Evento" yAxisLabel="Asistentes">
+            </ngx-charts-bar-vertical>
+        </div>
+        <div class="col-lg-6" style="text-align: center; margin-top: 20px;">
+            <p class="stats-text">Usuarios creadores y asistentes</p>
+            <table class="center">
+                <tr>
+                    <td>
+                        <ngx-charts-pie-grid [view]="[350,250]" [results]="surveyUsers">
+                        </ngx-charts-pie-grid>
+                        <ngx-charts-pie-grid [view]="[350,250]" [results]="surveyAsis">
+                        </ngx-charts-pie-grid>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

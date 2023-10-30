@@ -1,0 +1,83 @@
+<div class="animate__animated animate__fadeInRight animate__faster">
+    <div class="d-flex justify-content-center">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <div>
+                    <button class="btn btn-info m-r-10" [disabled]="!datosForm.pristine" routerLink="/admin/lugares">Volver</button>
+                    <div class="float-right">
+                        <button class="btn btn-primary" [disabled]="(!datosForm.pristine || (esnuevo()))" (click)="nuevo()">Nuevo<i class="fa fa-plus m-l-10"></i></button>
+                    </div>
+                </div>
+                <form class="form-horizontal m-t-20" [formGroup]="datosForm" (ngSubmit)="enviar()">
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">UID</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="uid" id="uid">
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Nombre</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="nombre" [ngClass]="{'is-invalid' : campoNoValido('nombre')}" id="nombre">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Código</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="id" [ngClass]="{'is-invalid' : campoNoValido('id')}" id="id">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row m-t-10 ">
+                        <div class="col-lg-3 col-md-12 text-lg-right ">
+                            <span class=" ">Coordenadas</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12 ">
+                            <input class="form-control " formControlName="bbox" [ngClass]="{ 'is-invalid' : campoNoValido( 'bbox')} " id="bbox" rows="3 ">
+                            <div class="invalid-feedback ">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row m-t-10 ">
+                        <div class="col-lg-3 col-md-12 text-lg-right ">
+                            <span class=" ">Plantas (*Mantenga el formato del campo)</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12 ">
+                            <input class="form-control " formControlName="plantas" [ngClass]="{ 'is-invalid' : campoNoValido( 'plantas')} " id="plantas" rows="3 ">
+                            <div class="invalid-feedback ">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-t-10 ">
+                        <div class="align-content-center ">
+                            <button class="btn btn-primary m-r-20 " type="submit " id="enviar " [disabled]="datosForm.pristine ">Enviar</button>
+                            <button class="btn btn-danger " type="button " (click)="cancelar() " id="cancelar " [disabled]="datosForm.pristine ">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-10 mx-auto p-0 " *ngIf="!esnuevo() ">
+        <!--     Alta de alumnos en le grupo     -->
+        <!--<div id="matricular-alumnos ">
+          <h5>Añadir alumnos al grupo</h5>
+          <app-selectusers [rol]=" 'ROL_ALUMNO' " [selected]="alumnos " (nuevaLista)="guardarLista($event) "></app-selectusers>
+      </div>-->
+    </div>
+</div>

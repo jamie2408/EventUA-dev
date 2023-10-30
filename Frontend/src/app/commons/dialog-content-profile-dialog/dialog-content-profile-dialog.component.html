@@ -1,0 +1,417 @@
+<h2 mat-dialog-title>
+    Perfil</h2>
+<mat-dialog-content class="mat-typography">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="fondo">
+        <div class="container">
+            <div class="row flex-lg-nowrap" style="height: 100%">
+                <div class="col">
+                    <div class="row" style="height: 100%">
+                        <div class="col mb-3" style="height: 100%">
+                            <mat-tab-group class="containertab" dynamicHeight animationDuration="0ms" style="height: 100%">
+                                <mat-tab class="containertab" label="Modificar datos">
+                                    <div>
+                                        <div class="card-body">
+                                            <div class="e-profile">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-auto mb-3">
+                                                        <div class="mx-auto" style="width: 140px;">
+                                                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                                <img [src]="imagenUrl" class="img-thumbnail rounded-circle" width="200">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div [formGroup]="datosForm">
+                                                        <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3" *ngIf="usu">
+                                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{usu.nombre}} {{usu.apellido}}</h4>
+                                                                <p class="mb-0">{{usu.email}}</p>
+                                                                <div class="mt-2">
+                                                                    <button class="btn btn-primary imagensel" type="button">
+                                                          <label for="fotoperfil" data-browse="Elegir"><i class="fa fa-fw fa-camera"></i> Subir Foto</label>
+                                                          <input type="file" class="custom-file-input" formControlName="imagen" id="fotoperfil" (change)="cambioImagen( $event )">
+                                                        </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center text-sm-right">
+                                                                <span class="badge badge-secondary">{{usu.rol}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-content pt-3">
+                                                    <div class="tab-pane active">
+                                                        <form class="form" [formGroup]="datosForm" (ngSubmit)="enviar()" novalidate="">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="row">
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label>Nombre</label>
+                                                                                <input type="text" class="form-control" formControlName="nombre" id="nombre">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label>Apellido</label>
+                                                                                <input type="text" class="form-control" formControlName="apellido" id="apellido">
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label>Email</label>
+                                                                                <input type="text " class="form-control " formControlName="email" [ngClass]="{ 'is-invalid' : campoNoValido( 'email')} " id="email ">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-2">
+                                                                            <div class="form-group">
+                                                                                <label>Edad</label>
+                                                                                <input type="number " class="form-control " formControlName="edad" id="edad">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-4">
+                                                                            <div class="col d-flex justify-content-end">
+                                                                                <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Mis eventos">
+                                    <div class="col-sm-4" style="margin-top: 5px;">
+                                        <p>Estado: &nbsp;
+                                            <select class="cajaestado" name="miselect" [(ngModel)]="estado" (change)="cargarEventos('')">
+                                            <option selected value="">Todos</option>
+                        
+                                            <option value="PENDIENTE">Pendientes</option>
+                                            <option value="APROBADO">Aprobados</option>
+                                            <option value="RECHAZADO">Rechazados</option>
+                                            <option value="FINALIZADO">Finalizado</option>
+                                        </select>
+                                        </p>
+                                    </div>
+                                    <div class="content" id="content" style="scroll-behavior: smooth; height: 90% !important">
+                                        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+                                            <div [hidden]="isShow" [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let evento of listaEventos">
+                                                <div class="card2">
+                                                    <figure *ngIf="evento.estado === 'APROBADO' && evento.nombre!.length>21" class="card__thumb">
+                                                        <img src={{formatoURL(evento.imagen)}} alt="Photo" class="card__image">
+                                                        <figcaption class="card__caption">
+                                                            <h2 class="card__title micursor" (click)="abrirEvento(evento.uid!)">{{evento.nombre}}</h2>
+                                                            <p *ngIf="evento.estado === 'APROBADO'" class="card__snippet micursor" style="color: #bdecb6" (click)="abrirEvento(evento.uid!)"> {{evento.estado}}</p>
+                                                            <i class="fa fa-pencil text-success fa-lg mr-5 micursor" style="color: #84bddd !important; margin-right: 10px;" (click)="nuevo(evento.uid);" data-toggle="modal" data-target="#modalformulario" data-whatever="Nuevo"></i>
+                                                            <i class="fa fa-trash text-danger fa-lg micursor" (click)="eliminarEvento(evento.uid!, evento.nombre!, evento.usuario!, evento.asistentes)"></i>
+                                                        </figcaption>
+                                                    </figure>
+                                                    <figure *ngIf="evento.estado === 'APROBADO' && evento.nombre!.length<=21 && evento.nombre!.length>10" class="card__thumb">
+                                                        <img src={{formatoURL(evento.imagen)}} alt="Photo" class="card__image">
+                                                        <figcaption class="card__caption" style="margin: 0 10% !important;">
+                                                            <h2 class="card__title micursor" (click)="abrirEvento(evento.uid!)">{{evento.nombre}}</h2>
+                                                            <br>
+                                                            <p *ngIf="evento.estado === 'APROBADO'" class="card__snippet micursor" style="color: #bdecb6" (click)="abrirEvento(evento.uid!)"> {{evento.estado}}</p>
+                                                            <i class="fa fa-pencil text-success fa-lg mr-5 micursor" style="color: #84bddd !important; margin-right: 10px;" (click)="nuevo(evento.uid);" data-toggle="modal" data-target="#modalformulario" data-whatever="Nuevo"></i>
+                                                            <i class="fa fa-trash text-danger fa-lg micursor" (click)="eliminarEvento(evento.uid!, evento.nombre!, evento.usuario!, evento.asistentes)"></i>
+                                                        </figcaption>
+                                                    </figure>
+                                                    <figure *ngIf="evento.estado === 'APROBADO' && evento.nombre!.length<=10" class="card__thumb">
+                                                        <img src={{formatoURL(evento.imagen)}} alt="Photo" class="card__image">
+                                                        <figcaption class="card__caption" style="padding: 0 30% !important;">
+                                                            <h2 class="card__title micursor" (click)="abrirEvento(evento.uid!)">{{evento.nombre}}</h2>
+                                                            <br>
+                                                            <p *ngIf="evento.estado === 'APROBADO'" class="card__snippet micursor" style="color: #bdecb6" (click)="abrirEvento(evento.uid!)"> {{evento.estado}}</p>
+                                                            <i class="fa fa-pencil text-success fa-lg mr-5 micursor" style="color: #84bddd !important; margin-right: 10px;" (click)="nuevo(evento.uid);" data-toggle="modal" data-target="#modalformulario" data-whatever="Nuevo"></i>
+                                                            <i class="fa fa-trash text-danger fa-lg micursor" (click)="eliminarEvento(evento.uid!, evento.nombre!, evento.usuario!, evento.asistentes)"></i>
+                                                        </figcaption>
+                                                    </figure>
+                                                    <figure *ngIf="evento.estado != 'APROBADO' && evento.nombre!.length>21" class="card__thumb">
+                                                        <img src={{formatoURL(evento.imagen)}} alt="Photo" class="card__image">
+                                                        <figcaption class="card__caption">
+                                                            <h2 class="card__title">{{evento.nombre}}</h2>
+                                                            <p *ngIf="evento.estado === 'PENDIENTE'" class="card__snippet" style="color: #ffff00"> {{evento.estado}}</p>
+                                                            <p *ngIf="evento.estado === 'RECHAZADO'" class="card__snippet" style="color: #ff0000"> {{evento.estado}}</p>
+                                                            <i class="fa fa-pencil text-success fa-lg mr-5 micursor" style="color: #84bddd !important; margin-right: 10px;" (click)="nuevo(evento.uid);" data-toggle="modal" data-target="#modalformulario" data-whatever="Nuevo"></i>
+                                                            <i class="fa fa-trash text-danger fa-lg micursor" (click)="eliminarEvento(evento.uid!, evento.nombre!, evento.usuario!, evento.asistentes)"></i>
+                                                        </figcaption>
+                                                    </figure>
+                                                    <figure *ngIf="evento.estado != 'APROBADO' && evento.nombre!.length<=21 && evento.nombre!.length>10" class="card__thumb">
+                                                        <img src={{formatoURL(evento.imagen)}} alt="Photo" class="card__image">
+                                                        <figcaption class="card__caption" style="margin: 0 10% !important;">
+                                                            <h2 class="card__title">{{evento.nombre}}</h2>
+                                                            <br>
+                                                            <p *ngIf="evento.estado === 'PENDIENTE'" class="card__snippet" style="color: #ffff00"> {{evento.estado}}</p>
+                                                            <p *ngIf="evento.estado === 'RECHAZADO'" class="card__snippet" style="color: #ff0000"> {{evento.estado}}</p>
+                                                            <i class="fa fa-pencil text-success fa-lg mr-5 micursor" style="color: #84bddd !important; margin-right: 10px;" (click)="nuevo(evento.uid);" data-toggle="modal" data-target="#modalformulario" data-whatever="Nuevo"></i>
+                                                            <i class="fa fa-trash text-danger fa-lg micursor" (click)="eliminarEvento(evento.uid!, evento.nombre!, evento.usuario!, evento.asistentes)"></i>
+                                                        </figcaption>
+                                                    </figure>
+                                                    <figure *ngIf="evento.estado != 'APROBADO' && evento.nombre!.length<=10" class="card__thumb">
+                                                        <img src={{formatoURL(evento.imagen)}} alt="Photo" class="card__image">
+                                                        <figcaption class="card__caption" style="padding: 0 40% !important;">
+                                                            <h2 class="card__title">{{evento.nombre}}</h2>
+                                                            <br>
+                                                            <p *ngIf="evento.estado === 'PENDIENTE'" class="card__snippet" style="color: #ffff00"> {{evento.estado}}</p>
+                                                            <p *ngIf="evento.estado === 'RECHAZADO'" class="card__snippet" style="color: #ff0000"> {{evento.estado}}</p>
+                                                            <i class="fa fa-pencil text-success fa-lg mr-5 micursor" style="color: #84bddd !important; margin-right: 10px;" (click)="nuevo(evento.uid);" data-toggle="modal" data-target="#modalformulario" data-whatever="Nuevo"></i>
+                                                            <i class="fa fa-trash text-danger fa-lg micursor" (click)="eliminarEvento(evento.uid!, evento.nombre!, evento.usuario!, evento.asistentes)"></i>
+                                                        </figcaption>
+                                                    </figure>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div *ngIf="totaleventos2!=0" class="row paginador" style="margin-top: 10px;">
+                                            <app-pagination (cambiarPagina)="cambiarPagina( $event )" [totalRegistros]="totaleventos2" [registroActual]="posicionactual2+1" [registrosPorPagina]="registrosporpagina2"></app-pagination>
+                                        </div>
+                                        <div *ngIf="totaleventos2==0">
+                                            <p style="color: rgba(0,0,0,.54); margin-top: 20px;">¡UPS! Parece que no se ha encontrado ningún evento. </p>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                                <mat-tab label="Mis stats">
+                                    <div class="row">
+                                        <div class="stats col-lg-6 col-md-6 col-sm-12">
+                                            <h2>Total eventos creados (2022)</h2>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <ngx-charts-bar-vertical [view]="[350,250]" [results]="surveyData" [xAxisLabel]="'Mes'" [yAxisLabel]="'Cantidad'" [legend]="false" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true" [gradient]="true"></ngx-charts-bar-vertical>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="stats col-lg-6 col-md-6 col-sm-12">
+                                            <h2>Total eventos asistidos (2022)</h2>
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <ngx-charts-bar-vertical [view]="[350,250]" [results]="surveyData1" [xAxisLabel]="'Mes'" [yAxisLabel]="'Cantidad'" [legend]="false" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxis]="true" [yAxis]="true" [gradient]="true"></ngx-charts-bar-vertical>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab class="containertab" label="Cambio contraseña">
+                                    <form class="form-horizontal m-t-20" [formGroup]="datosPassword" (ngSubmit)="cambiarPassword()">
+                                        <div class="row m-t-10">
+                                            <div class="col-lg-4 text-lg-right">
+                                                <span class="">Contraseña actual</span>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid' : campopNoValido('password')}" id="password">
+                                                <div class="invalid-feedback">
+                                                    El campo es obligatorio
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-10">
+                                            <div class="col-lg-4 text-lg-right">
+                                                <span class="">Nueva contraseña</span>
+                                            </div>
+                                            <div class="col-lg-6 ">
+                                                <input type="password" class="form-control" formControlName="nuevopassword" [ngClass]="{'is-invalid' : campopNoValido('nuevopassword')}" id="nuevopassword">
+                                                <div class="invalid-feedback">
+                                                    El campo es obligatorio
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-10">
+                                            <div class="col-lg-4 text-lg-right">
+                                                <span class="">Repita contraseña</span>
+                                            </div>
+                                            <div class="col-lg-6 ">
+                                                <input type="password" class="form-control" formControlName="nuevopassword2" [ngClass]="{'is-invalid' : campopNoValido('nuevopassword2') || passwordNoIgual()}" id="nuevopassword2">
+                                                <div class="invalid-feedback" *ngIf="campopNoValido('nuevopassword2')">
+                                                    El campo es obligatorio
+                                                </div>
+                                                <div class="invalid-feedback" *ngIf="passwordNoIgual()">
+                                                    La contraseña repetida no es igual a la nueva contraseña
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-center m-t-10 ">
+                                            <div class="align-content-center ">
+                                                <button class="btn btn-warning m-r-20" type="submit " id="enviarpassword" [disabled]="datosPassword.pristine"><i class="fa fa-key m-r-10"></i>Cambiar contraseña</button>
+                                                <button class="btn btn-danger " (click)="cancelarPassword()" type="button" id="cancelarpw" [disabled]="datosPassword.pristine">Cancelar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </mat-tab>
+                            </mat-tab-group>
+
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <div class="card mb-3 info">
+                                <div class="card-body">
+                                    <div class="px-xl-3">
+                                        <button mat-dialog-close class="btn btn-block btn-secondary">
+                                            <i class="fa fa-sign-out"></i>
+                                            <span (click)="logout()"> Cerrar sesión</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card outses">
+                                <div class="card-body">
+                                    <h6 class="card-title font-weight-bold">Ayuda</h6>
+                                    <p class="card-text">¿Alguna duda? Desde EventUA proporcionamos un servicio rápido y eficaz de atención al cliente.</p>
+                                    <a href="https://blackpanda.eventua.ovh/contacto/"><button type="button" class="btn btn-primary">Contáctanos</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
+
+
+
+<div class="modal fade" id="modalformulario" data-backdrop="static" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+    <div class="modal-dialog">
+        <div class="modal-content" style="z-index: 1100 !important;">
+
+            <form [formGroup]="datosForm2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{tituloModal}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <!-- Creador/Asistentes -->
+
+
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Nombre</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="nombre" [ngClass]="{'is-invalid' : campoNoValido2('nombre')}" id="nombre">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10 ">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Lugar</span>
+                        </div>
+                        <div class="form-group col-lg-8 col-md-12">
+                            <select class="form-control" [ngClass]="{'is-invalid' : campoNoValido2('lugar')}" formControlName="lugar">
+                              <option *ngFor="let lugar of lugares" value="{{lugar.uid}}">
+                                  {{lugar.nombre}}
+                              </option>
+                          </select>
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Precio en €</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="precio" id="precio" placeholder="Indique el precio del evento si lo tuviese">
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Descripción</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <textarea class="form-control" formControlName="descripcion" id="descripcion" rows="3"></textarea>
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Fecha inicio</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="date" class="form-control" formControlName="fecha_in" [ngClass]="{'is-invalid' : campoNoValido2('fecha_in')}" id="fecha_in">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Fecha fin</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="date" class="form-control" formControlName="fecha_fin" id="fecha_fin">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Hora de comienzo</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="hora" id="hora">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Máximo aforo</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="max_aforo" id="max_aforo" placeholder="Indique el aforo del evento si lo tuviese">
+                        </div>
+                    </div>
+
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Link</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="link" id="link">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary mr-2" type="button" style="margin-top: 0px !important;" (click)="enviarEvento();">Guardar</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>

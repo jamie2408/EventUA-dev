@@ -1,0 +1,16 @@
+.content {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: aliceblue;
+    height: fit-content;
+}
+
+.solid {
+    text-decoration: dashed;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.contact {
+    margin-top: 20px;
+}

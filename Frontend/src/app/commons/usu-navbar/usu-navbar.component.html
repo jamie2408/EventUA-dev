@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="wrapper">
+    <header>
+        <nav>
+            <div class="menu-icon">
+                <i class="fa fa-bars fa-2x"></i>
+            </div>
+            <div class="logo">
+                <a href="index.html"><img src="../../../../assets/images/logodef_eventua.png" width="220px"></a>
+            </div>
+            <div class="menu">
+                <ul>
+                    <!--    MOVIDO AL INDEX
+                    <li class="form-li">
+                        <form class="form-group form-horizontal m-t-10" [formGroup]="datosForm" (ngSubmit)="enviar()">
+                            <div class="row m-t-7 ">
+                                <div class="select form-group col-lg-4 col-md-4">
+                                    <select class="form-control-sm" id="exampleFormControlSelect1">
+                                    <option selected value="">Área</option>
+                                    <option value="charlas">Sociales y Jurídicas</option>
+                                    <option value="talleres">Humanidades</option>
+                                  </select>
+                                </div>
+                                <div class="col-lg-4 col-md-3">
+                                    <input style="height: 30px;" class="fechafil" type="date" class="form-control-sm" formControlName="int1_fecha" id="fecha1">
+                                    <div class="invalid-feedback">
+                                        El campo es obligatorio
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-3">
+                                    <input style="height: 30px;" class="fechafil" type="date" class="form-control-sm" formControlName="int2_fecha" id="fecha2">
+                                    <div class="invalid-feedback">
+                                        El campo es obligatorio
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </form>
+                    </li>
+                    -->
+                    <li><button class="responsive waves-effect waves-light"><mat-icon style="color: #ffffff;">filter_list</mat-icon></button></li>
+                    <li><button class="addResponsive waves-effect waves-light" (click)="openDialogCrearEvento()">
+                      <i class="material-icons" style="color: #ffffff; font-size: 20px;">add</i></button></li>
+                    <li><button class="bn632-hover bn26" (click)="openDialogCrearEvento()"> Crear evento
+                        </button></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" (click)="toggleBadgeVisibility()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="badge ml-2" matBadgeColor="accent" matBadge={{listaNotificacionesUsu.length}} [matBadgeHidden]="hidden"></span>
+                            <i class="fas fa-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+                            <h2>Notificaciones</h2>
+                            <div *ngIf="listaNotificacionesUsu.length==0"><span style="color: rgba(0, 0, 0, 0.75);">¡UPS! Parece que no aún no tienes notificaciones.</span>
+                            </div>
+                            <div class="item default waves-effect waves-light" *ngFor="let not of listaNotificacionesUsu">
+                                <span>{{not.texto}}</span>
+                                <mat-divider></mat-divider>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li>
+
+                    </li>
+
+                    <!--<li class="nav-item avatar dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="badge badge-danger ml-2">4</span>
+                            <i class="fas fa-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+                            <a class="dropdown-item waves-effect waves-light" href="#">Action <span class="badge badge-danger ml-2">4</span></a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Another action <span class="badge badge-danger ml-2">1</span></a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Something else here <span class="badge badge-danger ml-2">4</span></a>
+                        </div>
+                    </li>-->
+
+                    <li class="profilep">
+                        <span (click)="openDialog()" *ngIf="usu" class="pp"><img class="ppimg" [src]="imagenUrl" alt="user" class="rounded-circle pc" id="fotoperfilnavbar" width="40"></span>
+
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>

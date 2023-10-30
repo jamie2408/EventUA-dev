@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Design by foolishdeveloper.com -->
+    <title>Glassmorphism login Form Tutorial in html css</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <style media="screen">
+        *,
+        *:before,
+        *:after {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .inses {
+            color: #23a2f6;
+        }
+
+        body {
+            background-color: #080710;
+        }
+
+        .background {
+            width: 430px;
+            height: 520px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+        }
+
+        .background .shape {
+            height: 200px;
+            width: 200px;
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .shape:first-child {
+            background: linear-gradient( #1845ad, #23a2f6);
+            left: -80px;
+            top: -80px;
+        }
+
+        .shape:last-child {
+            background: linear-gradient( to right, #ff512f, #f09819);
+            right: -30px;
+            bottom: -80px;
+        }
+
+        form {
+            width: 400px;
+            background-color: rgba(255, 255, 255, 0.13);
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+            padding: 25px 35px;
+            color: #fff;
+        }
+
+        form * {
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            outline: none;
+            border: none;
+        }
+
+        form h3 {
+            font-size: 32px;
+            font-weight: 500;
+            line-height: 42px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 30px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        input {
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 3px;
+            padding: 0 10px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #e5e5e5;
+        }
+
+        input:focus {
+            background-color: rgba(255, 255, 255, 0.07);
+            color: #fff
+        }
+
+         ::placeholder {
+            color: #e5e5e5;
+        }
+
+        .login {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            background-color: #2ac0ee;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .register {
+            margin-top: 10px;
+            margin-bottom: 0px;
+            width: 100%;
+            height: 80px;
+            background-color: #0807105b;
+            color: #080710;
+            padding: 15px 0;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .social {
+            margin-top: 30px;
+            display: flex;
+            font-size: small;
+        }
+
+        .social div {
+            background: red;
+            width: 150px;
+            border-radius: 3px;
+            padding: 5px 10px 10px 5px;
+            background-color: rgba(255, 255, 255, 0.27);
+            color: #eaf0fb;
+            text-align: center;
+        }
+
+        .social div:hover {
+            background-color: rgba(255, 255, 255, 0.47);
+        }
+
+        .social .fb {
+            margin-left: 25px;
+        }
+
+        .social i {
+            margin-right: 4px;
+        }
+
+        .bn632-hover {
+            width: 140px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            margin: 20px;
+            height: 55px;
+            text-align: center;
+            border: none;
+            background-size: 300% 100%;
+            border-radius: 50px;
+            moz-transition: all .4s ease-in-out;
+            -o-transition: all .4s ease-in-out;
+            -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+        }
+
+        .bn632-hover:hover {
+            background-position: 100% 0;
+            moz-transition: all .4s ease-in-out;
+            -o-transition: all .4s ease-in-out;
+            -webkit-transition: all .4s ease-in-out;
+            transition: all .4s ease-in-out;
+        }
+
+        .bn632-hover:focus {
+            outline: none;
+        }
+
+        .bn632-hover.bn26 {
+            background-image: linear-gradient( to right, #25aae1, #4481eb, #04befe, #3f86ed);
+            box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+        }
+
+        .reghere {
+            margin-top: 20px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .reghere2 {
+            margin-top: 25px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .link {
+            color: #084d64;
+        }
+
+        input {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form id="loginform" (ngSubmit)="login()" [formGroup]="loginForm">
+        <h3>Iniciar Sesión</h3>
+        <p class="reghere">O si todavía no tienes una cuenta, <a class="link" [routerLink]="['/register']">registrate aquí.</a></p>
+
+        <label for="email">Email</label>
+        <input type="text" class="form-control form-control-lg" formControlName="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required="">
+
+        <label for="password">Password</label>
+        <input type="password" class="form-control form-control-lg" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+        <div class="custom-control custom-checkbox mr-sm-2">
+            <input type="checkbox" class="custom-control-input" formControlName="remember" id="customControlAutosizing1">
+            <label class="custom-control-label text-light" for="customControlAutosizing1">Recuerdame</label>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="text-danger" *ngIf="!campoValido('email')">El email debe ser correcto</p>
+                <p class="text-danger" *ngIf="!campoValido('password')">El campo contraseña no debe estar vacio</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="reghere2"><a class="link" [routerLink]="['/recovery']">¿Olvidaste tu contraseña?</a></p>
+            </div>
+            <div class="col">
+                <button class="bn632-hover bn26" type="submit" [disabled]="waiting"><i class="fas fa-spinner fa-spin m-r-10" *ngIf="waiting"></i>Login</button>
+            </div>
+        </div>
+
+    </form>
+</body>
+
+</html>
+
+<!--<div id="loginform">
+    <div class="text-center p-t-20 p-b-20">
+        <span class="db"><img src="../../assets/images/logodef_eventua.png" alt="logo" style="width: 100%;"/></span>
+    </div>-->
+<!-- Form -->
+<!--
+    <form class="form-horizontal m-t-20" id="loginform" (ngSubmit)="login()" [formGroup]="loginForm">
+        <div class="row p-b-30">
+            <div class="col-12">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg" formControlName="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required="">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
+                    </div>
+                    <input type="password" class="form-control form-control-lg" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="custom-control custom-checkbox mr-sm-2">
+                        <input type="checkbox" class="custom-control-input" formControlName="remember" id="customControlAutosizing1">
+                        <label class="custom-control-label text-light" for="customControlAutosizing1">Recuerdame</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="text-danger" *ngIf="!campoValido('email')">El email debe ser correcto</p>
+                <p class="text-danger" *ngIf="!campoValido('password')">El campo contraseña no debe estar vacio</p>
+            </div>
+        </div>
+        <div class="row border-top border-secondary">
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="p-t-20">
+                        <button class="btn btn-info" id="to-recover" type="button" [disabled]="waiting" routerLink="/recovery"><i class="fa fa-lock m-r-5"></i> Recuperar contraseña</button>
+                        <button class="btn btn-success float-right" type="submit" [disabled]="waiting"><i class="fas fa-spinner fa-spin m-r-10" *ngIf="waiting"></i>Login</button>
+                    </div>
+                    <div class="p-t-20">
+                        <button class=" btn btn-info " id="to-register" type="button " [disabled]="waiting" [routerLink]="['../register']" routerLinkActive="active"><i class="fa fa-user-plus m-r-5 "></i> Regístrate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>-->

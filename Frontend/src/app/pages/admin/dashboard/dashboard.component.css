@@ -1,0 +1,50 @@
+.kpis {
+    margin-top: 20px;
+    color: white
+}
+
+.container {
+    background: rgb(139, 18, 18);
+    background: linear-gradient(28deg, rgba(139, 18, 18, 1) 0%, rgba(208, 122, 122, 1) 27%, rgba(116, 196, 235, 1) 100%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+    margin-bottom: 50px;
+    color: white;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/deep/ .advanced-pie-legend /deep/ .legend-items-container /deep/ .legend-items /deep/ .legend-item /deep/ .item-value {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+/deep/ .advanced-pie-legend /deep/ .total-label {
+    margin-top: 10px !important;
+}
+
+::ng-deep .ngx-charts {
+    fill: #fff!important;
+}
+
+.theme-dark {
+    background-color: #19201c00 !important;
+    border: 0px solid #292929 !important;
+}
+
+.panel-container {
+    background-color: #19201c00 !important;
+    border: 0px solid #292929 !important;
+}
+
+.panel-container--transparent {
+    background-color: #19201c00 !important;
+    border: 0px solid #292929 !important;
+}

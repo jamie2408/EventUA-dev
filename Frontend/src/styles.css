@@ -1,0 +1,173 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+#game-container {
+    /*canvas del three.js */
+    width: 100%;
+    height: 600px;
+}
+
+.navbar {
+    background-color: #5b8ba6;
+}
+
+.scheme-container {
+    display: none;
+}
+
+.btn-aprobar {
+    border-radius: 2em;
+    background-color: #5b8ba6;
+    color: #ffffff;
+    padding: .5em 1.5em;
+}
+
+.btn-rechazar {
+    border-radius: 2em;
+    background-color: rgba(168, 1, 1, 0.7);
+    color: #ffffff;
+    padding: .5em 1.5em;
+}
+
+.btn-aprobar:hover {
+    background-color: rgba(0, 128, 128, 0.7);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-rechazar:hover {
+    background-color: rgba(168, 1, 1, 0.7);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.div-btn-panel {
+    text-align: center;
+}
+
+.mat-elevation-z4 {
+    padding: 1.5em .5em .5em;
+    border-radius: 5em;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.mat-card {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mat-toolbar {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mat-button-wrapper {
+    font-family: 'Montserrat', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.usu-footer {
+    background-color: #e73c7e00;
+    color: rgba(240, 248, 255, 0.755);
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+#usu-navbar {
+    background-color: transparent;
+    background: transparent;
+    border-color: transparent;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+:root {
+    --select-border: #777;
+    --select-focus: blue;
+    --select-arrow: var(--select-border);
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.fechafil {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.guionfil {
+    color: #ffffff;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+    width: 26px;
+    border-radius: 13px;
+    background-clip: padding-box;
+    border: 10px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(60, 178, 232, 0.68);
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+}
+
+
+/*Diseño responsive*/
+
+@media(max-width: 986px) {
+    .filtrosIndex {
+        display: none;
+    }
+}
+
+@media(max-width: 400px) {
+    .col-feed {
+        width: 100%;
+    }
+    .content {
+        width: 100%;
+    }
+    .layout {
+        width: 100% !important;
+    }
+}

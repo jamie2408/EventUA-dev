@@ -1,0 +1,63 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive Sticky Navbar</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <nav>
+                <div class="menu-icon">
+                    <i class="fa fa-bars fa-2x"></i>
+                </div>
+                <div class="logo"><img src="../../../../assets/images/logodef_eventua.png" width="240px">
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li><a class="hov" href="#" [routerLink]="['/landing']">Inicio</a></li>
+                        <li><a class="hov" href="#" [routerLink]="['/login']">Iniciar sesión</a></li>
+                        <li><button class="btn btn-outline-light" [routerLink]="['/register']">Registrarse</button></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div class="content">
+            <div class="feature text-center is-revealing">
+                <div class="feature-inner row">
+                    <div class="col-sm-12 col-lg-6 col-md-12">
+                        <img src="../../../../assets/images/sland.png" width="600" height="400">
+
+                    </div>
+                    <div class="col-sm-12 col-lg-6 col-md-12">
+                        <h1>Crea, únete y comparte eventos</h1>
+                        <p>Disfruta de todos los eventos de la Universidad de Alicante de una forma innovadora. Todos estos eventos están a tu alcance gracias a la interfaz 3D que Eventua ofrece, donde además el usuario podrá crear sus propios eventos en
+                            los diferentes lugares del maravilloso campus de la UA. </p>
+                        <button class="btn btn-outline-light" [routerLink]="['/register']">Únete!</button>
+                        <p>Más información sobre este proyecto académico en:
+                            <a href="https://blackpanda.eventua.ovh">blackpanda.eventua.ovh</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<app-usu-footer></app-usu-footer>
+
+</html>

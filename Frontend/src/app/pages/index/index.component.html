@@ -1,0 +1,280 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="principal animate__animated animate__fadeInDown animate__faster" style="overflow: hidden !important">
+    <div class="usu-footer text-center">
+        <img id="crate-image" src="../../assets/images/info.png" width="0" height="0"> Copyright © 2021 EventUA. Designed and Developed by <a href="https://blackpanda.eventua.ovh/" style="color: #ffffff">Black Panda</a>.
+        <img (click)="openDialogCrearEvento()" src="../../assets/images/info.png" width="50" height="50" class="micursor" style=" position: absolute;
+        right: 50px; bottom: 10px;" />
+    </div>
+    <div class="d-flex justify-content-center enginediv micursor">
+        <app-engine (click)="actualizaLugar()">
+
+        </app-engine>
+    </div>
+    <!--<footer class="usu-footer text-center">
+    </footer>-->
+    <div class="filtrosIndex">
+        <div>
+            <!--<mat-form-field appearance="fill">
+                <mat-label>Area</mat-label>
+                <mat-select class="filtroCategoria" name="miselect" [(ngModel)]="cat" (change)="cargarEventos(txtBuscar.value)">
+                    <mat-option value="CIENCIAS EXACTAS">CIENCIAS EXACTAS
+                    </mat-option>
+                    <mat-option value="CIENCIAS EXACTAS">CIENCIAS NATURALES
+                    </mat-option>
+                    <mat-option value="CIENCIAS EXACTAS">GENERAL
+                    </mat-option>
+                    <mat-option value="CIENCIAS EXACTAS">CIENCIAS EXACTAS
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>-->
+
+            <select class="filtroCategoria" name="miselect" [(ngModel)]="cat" (change)="cargarEventos(txtBuscar.value)">
+                    <option selected value="">ÁREA</option>
+
+                    <option value="CIENCIAS EXACTAS">CIENCIAS EXACTAS</option>
+                    <option value="CIENCIAS NATURALES">CIENCIAS NATURALES</option>
+                    <option value="DEPORTES">DEPORTES</option>
+                    <option value="EDUCACIÓN">EDUCACIÓN</option>
+                    <option value="GENERAL">GENERAL</option>
+                    <option value="HUMANIDADES">HUMANIDADES</option>
+                    <option value="SOCIALES Y JURÍDICAS">SOCIALES Y JURÍDICAS</option>
+                    <option value="TECNOLOGÍAS">TECNOLOGÍAS</option>
+
+
+                  </select>
+        </div>
+
+        <div>
+            <mat-form-field class="filtroFechas" appearance="fill" id="rangofecha" size="small">
+                <mat-label>Selecciona un rango de fechas</mat-label>
+                <mat-date-range-input id="infecha" [formGroup]="range" [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Desde">
+                    <input matEndDate formControlName="end" placeholder="Hasta">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Fecha de inicio invalida</mat-error>
+                <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Fecha de fin invalida</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="input-group">
+            <input #txtBuscar type="text" (keyup)="cargarEventos(txtBuscar.value)" id="fname" placeholder="Buscar">
+            <div class="input-group-append">
+                <span class="input-group-text micursor" (click)="txtBuscar.value ='';cargarEventos(txtBuscar.value)" style="border-top-right-radius: 10px !important; border-bottom-right-radius: 10px !important; background-color: transparent !important;"><i class="fa fa-times-circle"></i></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="mostrar === true" class="col-feed" id="col-feed">
+        <button class="cerrar" (click)="cerrarTodo()">
+            <i class="material-icons" style="color: #e73c7e; font-size: 20px;">close</i>
+        </button>
+
+        <mat-toolbar class="mat-tool">
+            <span>Eventos ({{totaleventos}})</span>
+
+        </mat-toolbar>
+
+        <mat-chip-list selectable multiple>
+            <mat-chip class="matchip" id="matchip" #c="matChip" *ngFor="let option of categorias" [value]="option" (click)="toggleSelection(c)">
+                <mat-icon class="mat-icon" *ngIf="c.selected">check</mat-icon>
+                {{option}}
+            </mat-chip>
+        </mat-chip-list>
+
+        <div class="content" id="content" style="scroll-behavior: smooth;">
+            <div fxLayout="column wrap" fxLayoutGap="0px grid">
+                <div class="layout" [hidden]="isShow" [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="90%" fxFlex.sm="100%" *ngFor="let evento of listaEventos">
+
+
+                    <div class="card micursor" (click)="cargarEvento(evento.uid)">
+                        <figure class="card__thumb">
+                            <img src={{formatoURL(evento.imagen)}} alt="Photo" class="card__image">
+                            <figcaption *ngIf="evento.nombre!.length>21" class="card__caption">
+                                <h2 class="card__title">{{evento.nombre}}</h2>
+
+                                <p *ngIf="evento && evento.fecha_in && evento.fecha_fin && evento.fecha_in >= evento.fecha_fin" class="card__snippet">{{evento.fecha_in | date:'dd-MM-yyyy'}}</p>
+                                <p *ngIf="evento && evento.fecha_in && evento.fecha_fin && evento.fecha_in < evento.fecha_fin" class="card__snippet">{{evento.fecha_in | date:'dd-MM-yyyy'}} / {{evento.fecha_fin | date:'dd-MM-yyyy'}}</p>
+
+                            </figcaption>
+                            <figcaption *ngIf="evento.nombre!.length<=21" class="card__caption" style="padding: 0 80px !important;">
+                                <h2 class="card__title">{{evento.nombre}}</h2>
+                                <br>
+
+                                <p *ngIf="evento && evento.fecha_in && evento.fecha_fin && evento.fecha_in >= evento.fecha_fin" class="card__snippet">{{evento.fecha_in | date:'dd-MM-yyyy'}}</p>
+                                <p *ngIf="evento && evento.fecha_in && evento.fecha_fin && evento.fecha_in < evento.fecha_fin" class="card__snippet">{{evento.fecha_in | date:'dd-MM-yyyy'}} / <br> {{evento.fecha_fin | date:'dd-MM-yyyy'}}</p>
+
+                            </figcaption>
+                        </figure>
+                    </div>
+
+
+                </div>
+            </div>
+            <div *ngIf="totaleventos!=0" class="row paginador">
+                <app-pagination (cambiarPagina)="cambiarPagina( $event )" [totalRegistros]="totaleventos" [registroActual]="posicionactual+1" [registrosPorPagina]="registrosporpagina"></app-pagination>
+            </div>
+            <div *ngIf="totaleventos==0">
+                <p style="color: rgba(0,0,0,.54);">¡UPS! Parece que no se ha encontrado ningún evento. </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="eventoSel" class="col-evento" id="col-evento" style="font-family: 'Poppins', sans-serif;">
+
+    <div>
+        <img src={{formatoURL(eventoSel.imagen)}} alt="Photo" style="width: 386px;height: 235px; margin-left: -12px; margin-top: -12px;">
+        <div class="colorear"></div>
+        <button class="atras" (click)="cerrarEvento()">
+                <i class="material-icons" style="color: #e73c7e; font-size: 20px;">arrow_back</i>
+            </button>
+        <button class="cerrar" (click)="cerrarTodo()">
+                <i class="material-icons" style="color: #e73c7e; font-size: 20px;">close</i>
+
+            </button>
+        <h1 class="titulo">{{eventoSel.nombre}} <i class="material-icons micursor" (click)="downloadAsPDF()" style="color: #e73c7e; font-size: 17px;">cloud_download</i></h1>
+        <p class="subtitulo">{{eventoSel.lugar!.nombre}}</p>
+        <button class="megusta" *ngIf="liked==false" (click)="addLike(eventoSel)">
+                <i class="material-icons" style="color: #e73c7e; font-size: 20px;">favorite_border</i>
+            </button>
+        <button class="megustatrue" *ngIf="liked" (click)="addLike(eventoSel)">
+              <i class="material-icons" style="color: #ffffff; font-size: 20px;">favorite</i>
+        </button>
+        <a class="enlaceshare compartir" href="https://twitter.com/intent/tweet?text=Visita%20el%20evento%20{{eventoSel.nombre}}%20en%20%40eventuabp%3A%20https%3A%2F%2Feventua.ovh/home/evento/{{eventoSel.uid}}" target="popup" onclick="window.open('https://twitter.com/intent/tweet?text=Visita%20el%20evento%20nombre_ev%20desde%20%282012%29%20by%20Ada%20on%20%40letterboxd%3A%20https%3A%2F%2Feventua.ovh%2F2FvAF7','popup','width=600,height=400')"><i class="material-icons" style="color: #e73c7e; font-size: 20px;">share</i></a>
+    </div>
+    <div>
+        <div>
+
+            <div style="display: flex; align-items: center;">
+                <div style="width: 49%">
+                    <button class="asistir" *ngIf="asistido==false" (click)="addAsistente(eventoSel)">
+                    <i class="material-icons" style="color: #e73c7e; font-size: 20px;">group_add</i>
+                    <span style="color: #e73c7e; font-size: 25px;  margin-top: 10px; margin-bottom: 10px;">Asistir</span>
+                    <span style="color: #e73c7e; font-size: 25px;">{{eventoSel.asistentes.length}}</span>
+
+                </button>
+                    <button class="asistirtrue" *ngIf="asistido" (click)="addAsistente(eventoSel)">
+                  <i class="material-icons" style="color: #ffffff; font-size: 20px;">group_add</i>
+                  <span style="color: #ffffff; font-size: 25px; margin-top: 10px; margin-bottom: 10px;">Anular</span>
+                  <span style="color: #ffffff; font-size: 25px; ">{{eventoSel.asistentes.length}}</span>
+
+              </button>
+
+
+                </div>
+                <div style="width: 49%;">
+                    <span style="font-size: 40px; margin-top:15px;">{{media}}</span>
+                    <div class="estrellas">
+                        <button class="ratingdiv" mat-icon-button color="accent" *ngFor="let r of ratingArr; index as i" (click)="onClick(i,eventoSel)">
+                        <mat-icon class="star" style="font-size: 25px;">
+                            {{ returnStar(i) }}
+                        </mat-icon>
+                        </button>
+                        <span style="font-size: 15px; color:black !important"> ({{eventoSel.valoraciones.length}})</span>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div *ngIf="eventoSel.fecha_in[0] >= eventoSel.fecha_fin[0] && eventoSel.fecha_in[0] > '2000-01-01'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">event</i>&nbsp;&nbsp;&nbsp; {{eventoSel.fecha_in[0] | date:'dd-MM-yyyy'}}</p>
+            </div>
+            <div *ngIf="eventoSel.fecha_in[0] < eventoSel.fecha_fin[0] && eventoSel.fecha_in[0] > '2000-01-01'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">event</i>&nbsp;&nbsp;&nbsp; {{eventoSel.fecha_in[0] | date:'dd-MM-yyyy'}} / {{eventoSel.fecha_fin[0] | date:'dd-MM-yyyy'}}</p>
+            </div>
+            <div *ngIf="eventoSel.fecha_in[0] < eventoSel.fecha_fin[0] && eventoSel.fecha_in[0] < '2000-01-01' && eventoSel.fecha_fin[0] > '2000-01-01'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">event</i>&nbsp;&nbsp;&nbsp; Hasta {{eventoSel.fecha_fin[0] | date:'dd-MM-yyyy'}}</p>
+            </div>
+
+            <p *ngIf="eventoSel.hora" style="margin-top: 20px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">schedule</i>&nbsp;&nbsp;&nbsp; {{eventoSel.hora}}</p>
+
+
+            <div *ngIf="eventoSel.FechaInicioInscripcion && eventoSel.FechaInicioInscripcion[0] >= eventoSel.FechaFinInscripcion[0] && eventoSel.FechaInicioInscripcion[0] > '2000-01-01'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">event_available</i>&nbsp;&nbsp;&nbsp; Fecha de inscripción desde {{eventoSel.FechaInicioInscripcion[0] | date:'dd-MM-yyyy'}}</p>
+            </div>
+            <div *ngIf="eventoSel.FechaInicioInscripcion && eventoSel.FechaInicioInscripcion[0] < eventoSel.FechaFinInscripcion[0] && eventoSel.FechaInicioInscripcion[0] > '2000-01-01'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">event_available</i>&nbsp;&nbsp;&nbsp; Fecha de inscripción {{eventoSel.FechaInicioInscripcion[0] | date:'dd-MM-yyyy'}} / {{eventoSel.FechaFinInscripcion[0] | date:'dd-MM-yyyy'}}</p>
+            </div>
+            <div *ngIf="eventoSel.FechaInicioInscripcion && eventoSel.FechaInicioInscripcion[0] < eventoSel.FechaFinInscripcion[0] && eventoSel.FechaInicioInscripcion[0] < '2000-01-01' && eventoSel.FechaFinInscripcion[0] > '2000-01-01'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">event_available</i>&nbsp;&nbsp;&nbsp; Fecha de inscripción hasta {{eventoSel.FechaFinInscripcion[0] | date:'dd-MM-yyyy'}}</p>
+            </div>
+
+            <a *ngIf="eventoSel.link && eventoSel.link != 'Sin link'" target="blank" href={{dinamicURL}} style="word-wrap: break-word; margin-top: 15px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: left; color: #e73c7e; overflow: hidden;"><i class="material-icons" style="color: #5ca8d4; font-size: 25px;margin-right: 5px;">link</i>&nbsp;&nbsp;&nbsp; {{eventoSel.link}}</a>
+
+            <div *ngIf="eventoSel.tipo === 'PARTICULAR'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">person</i>&nbsp;&nbsp;&nbsp; {{eventoSel.usuario!.email}}</p>
+            </div>
+            <div *ngIf="eventoSel.tipo === 'INSTITUCIONAL'">
+                <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">person</i>&nbsp;&nbsp;&nbsp; {{eventoSel.tipo}}</p>
+            </div>
+            <p *ngIf="eventoSel.descripcion != 'Sin descripción'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">description</i>&nbsp;&nbsp;&nbsp; {{eventoSel.descripcion}}</p>
+            <p style="margin-top: 20px; margin-left: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">category</i>&nbsp;&nbsp;&nbsp; {{eventoSel.categoria}}</p>
+
+
+
+            <!--<p *ngIf="eventoSel.max_aforo" style="margin-top: 15px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #e73c7e; font-size: 25px;">people</i>&nbsp;&nbsp;&nbsp; {{eventoSel.max_aforo}}</p>-->
+
+            <p *ngIf="eventoSel.precio" style="margin-top: 20px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #5ca8d4 ; font-size: 25px;">attach_money</i>&nbsp;&nbsp;&nbsp; {{eventoSel.precio}} €</p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div *ngIf="eventoSel" id="pdfTable" #pdfTable style="position: absolute; top: -1000px;">
+
+
+        <h1 class="titulo" style="font-size: 40px;">{{eventoSel.nombre}}</h1><br><br>
+        <p class="subtitulo" style="font-size: 20px; color: #e73c7e;">{{eventoSel.lugar!.nombre}}</p><br><br>
+
+        <p *ngIf="eventoSel.fecha_in[0] >= eventoSel.fecha_fin[0] && eventoSel.fecha_in[0] > '2000-01-01'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">Fecha: {{eventoSel.fecha_in[0] | date:'dd-MM-yyyy'}}</p>
+
+        <p *ngIf="eventoSel.fecha_in[0] < eventoSel.fecha_fin[0] && eventoSel.fecha_in[0] > '2000-01-01'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">Fecha: {{eventoSel.fecha_in[0] | date:'dd-MM-yyyy'}} / {{eventoSel.fecha_fin[0] | date:'dd-MM-yyyy'}}</p>
+
+        <p *ngIf="eventoSel.fecha_in[0] < eventoSel.fecha_fin[0] && eventoSel.fecha_in[0] < '2000-01-01' && eventoSel.fecha_fin[0] > '2000-01-01'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">Hasta {{eventoSel.fecha_fin[0] | date:'dd-MM-yyyy'}}</p><br>
+
+
+        <p *ngIf="eventoSel.hora" style="margin-top: 15px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">Hora: {{eventoSel.hora}}</p><br>
+
+        <p *ngIf="eventoSel.FechaInicioInscripcion && eventoSel.FechaInicioInscripcion[0] >= eventoSel.FechaFinInscripcion[0] && eventoSel.FechaInicioInscripcion[0] > '2000-01-01'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">
+            Fecha de inscripción desde {{eventoSel.FechaInicioInscripcion[0] | date:'dd-MM-yyyy'}}</p>
+
+        <p *ngIf="eventoSel.FechaInicioInscripcion && eventoSel.FechaInicioInscripcion[0] < eventoSel.FechaFinInscripcion[0] && eventoSel.FechaInicioInscripcion[0] > '2000-01-01'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">
+            Fecha de inscripción {{eventoSel.FechaInicioInscripcion[0] | date:'dd-MM-yyyy'}} / {{eventoSel.FechaFinInscripcion[0] | date:'dd-MM-yyyy'}}</p>
+
+        <p *ngIf="eventoSel.FechaInicioInscripcion && eventoSel.FechaInicioInscripcion[0] < eventoSel.FechaFinInscripcion[0] && eventoSel.FechaInicioInscripcion[0] < '2000-01-01' && eventoSel.FechaFinInscripcion[0] > '2000-01-01'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">
+            Fecha de inscripción hasta {{eventoSel.FechaFinInscripcion[0] | date:'dd-MM-yyyy'}}</p><br>
+
+
+        <a *ngIf="eventoSel.link && eventoSel.link != 'Sin link'" target="blank" href={{dinamicURL}} style="word-wrap: break-word; margin-top: 15px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: #e73c7e;">{{eventoSel.link}}</a><br>
+
+        <p *ngIf="eventoSel.tipo === 'PARTICULAR'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">Organizado por: {{eventoSel.usuario!.email}}</p>
+
+
+        <p *ngIf="eventoSel.tipo === 'INSTITUCIONAL'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">Organizado por la UA</p><br>
+
+        <p *ngIf="eventoSel.descripcion != 'Sin descripción'" style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: center;">Descripción: {{eventoSel.descripcion}}</p><br>
+        <p style="margin-top: 15px; margin-left: 15px; display: flex; align-items: center; justify-content: left;">Categoría: {{eventoSel.categoria}}</p><br>
+
+
+
+
+        <!--<p *ngIf="eventoSel.max_aforo" style="margin-top: 15px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: left;"><i class="material-icons" style="color: #e73c7e; font-size: 25px;">people</i>&nbsp;&nbsp;&nbsp; {{eventoSel.max_aforo}}</p>-->
+
+        <p *ngIf="eventoSel.precio" style="margin-top: 15px; margin-left: 15px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center;">Precio: {{eventoSel.precio}} €</p>
+
+
+    </div>
